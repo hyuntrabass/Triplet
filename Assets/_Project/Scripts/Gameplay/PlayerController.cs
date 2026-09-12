@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
+        RefreshPlayerState();
     }
 
     private void HandleStateChanged()

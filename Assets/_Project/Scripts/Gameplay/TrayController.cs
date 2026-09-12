@@ -57,9 +57,11 @@ public class TrayController : MonoBehaviour
     {
         _tiles.ForEach(x =>
         {
-            _tiles.Remove(x);
             StartCoroutine(DestroyTimeNextFrame(x.gameObject));
         });
+
+        _tiles.Clear();
+        StateChanged?.Invoke();
     }
 
     private void RearrangeTiles()
