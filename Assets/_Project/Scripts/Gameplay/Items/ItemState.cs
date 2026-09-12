@@ -7,6 +7,8 @@ public sealed class ItemState
 
     public bool CanUse => Count > 0;
 
+    public event Action Changed;
+
     public ItemState(ItemDefinition definition)
     {
         Definition = definition != null ? definition 
@@ -21,6 +23,7 @@ public sealed class ItemState
         }
 
         Count += amount;
+        Changed?.Invoke();
     }
 
     public bool TryConsume()
@@ -31,6 +34,8 @@ public sealed class ItemState
         }
 
         Count--;
+        Changed?.Invoke();
+        
         return true;
     }
 }

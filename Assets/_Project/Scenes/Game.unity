@@ -1343,6 +1343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 873281687}
   - component: {fileID: 873281688}
+  - component: {fileID: 873281689}
   m_Layer: 5
   m_Name: ItemBar
   m_TagString: Untagged
@@ -1398,6 +1399,26 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &873281689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873281686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e002af19ff47d034287ab7d9b15253ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemBarController
+  _buttons:
+  - {fileID: 1173166581}
+  - {fileID: 390373297}
+  - {fileID: 166415948}
+  _loadout:
+  - {fileID: 11400000, guid: ef0ad01566a4f354a862c712e87ccc4a, type: 2}
+  - {fileID: 11400000, guid: eab1a540a7d944a469da53e9ee2116fa, type: 2}
+  - {fileID: 11400000, guid: 9eb13fec0ba313244afc86d068b56ea4, type: 2}
 --- !u!1 &884071667
 GameObject:
   m_ObjectHideFlags: 0

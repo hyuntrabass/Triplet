@@ -24,8 +24,15 @@ public class ItemButtonView : MonoBehaviour
 
     public void Init(ItemState state)
     {
+        if (_state != null)
+        {
+            _state.Changed -= RefreshView;
+        }
+
         _state = state
             ?? throw new ArgumentNullException(nameof(state));
+
+        _state.Changed += RefreshView;
 
         _iconImage.sprite = state.Definition.Icon;
         _iconImage.enabled = state.Definition.Icon != null;
@@ -56,21 +63,14 @@ public class ItemButtonView : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (_state != null)
+        {
+            _state.Changed -= RefreshView;
+        }
+        
         if (_button != null)
         {
             _button.onClick.RemoveListener(HandleClick);
         }
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
