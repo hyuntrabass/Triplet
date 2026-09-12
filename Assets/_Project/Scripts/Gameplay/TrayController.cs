@@ -47,7 +47,7 @@ public class TrayController : MonoBehaviour
         matchedTiles.ForEach(x =>
         {
             _tiles.Remove(x);
-            StartCoroutine(DestroyTimeNextFrame(x.gameObject));
+            StartCoroutine(DestroyTileNextFrame(x.gameObject));
         });
 
         RearrangeTiles();
@@ -57,7 +57,7 @@ public class TrayController : MonoBehaviour
     {
         _tiles.ForEach(x =>
         {
-            StartCoroutine(DestroyTimeNextFrame(x.gameObject));
+            StartCoroutine(DestroyTileNextFrame(x.gameObject));
         });
 
         _tiles.Clear();
@@ -75,7 +75,7 @@ public class TrayController : MonoBehaviour
         }
     }
 
-    private IEnumerator DestroyTimeNextFrame(GameObject tileObject)
+    private IEnumerator DestroyTileNextFrame(GameObject tileObject)
     {
         tileObject.SetActive(false);
 
