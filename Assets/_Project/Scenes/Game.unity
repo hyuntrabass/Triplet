@@ -271,6 +271,7 @@ MonoBehaviour:
   - {fileID: 9158188}
   - {fileID: 26800415}
   - {fileID: 2032485894}
+  _traycontroller: {fileID: 858324392}
 --- !u!1 &166415946
 GameObject:
   m_ObjectHideFlags: 0
