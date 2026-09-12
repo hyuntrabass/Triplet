@@ -372,7 +372,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1338122234}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: MoveFirstTilesToTempBoard
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -854,7 +854,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1338122234}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: MoveFirstTilesToTempBoard
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1419,6 +1419,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ef0ad01566a4f354a862c712e87ccc4a, type: 2}
   - {fileID: 11400000, guid: eab1a540a7d944a469da53e9ee2116fa, type: 2}
   - {fileID: 11400000, guid: 9eb13fec0ba313244afc86d068b56ea4, type: 2}
+  _playerController: {fileID: 1338122234}
 --- !u!1 &884071667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,7 +1884,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1338122234}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: MoveFirstTilesToTempBoard
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

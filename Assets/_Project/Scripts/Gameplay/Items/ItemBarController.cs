@@ -8,6 +8,8 @@ public class ItemBarController : MonoBehaviour
     private ItemButtonView[] _buttons;
     [SerializeField]
     private ItemDefinition[] _loadout;
+    [SerializeField]
+    private PlayerController _playerController;
 
     private readonly List<ItemState> _states = new();
 
@@ -46,10 +48,14 @@ public class ItemBarController : MonoBehaviour
 
     private void HandleItemClicked(ItemState state)
     {
-        if (state.TryConsume())
+        bool succeeded = _playerController.TryUseItem(state.Definition.Type);
+
+        if (succeeded == false)
         {
-            Debug.Log($"아이템 사용: {state.Definition.Type}");
+            return;
         }
+
+        state.TryConsume();
     }
 
     private void OnDestroy()

@@ -1,4 +1,5 @@
 using System;
+using Triplet.Core;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -50,10 +51,32 @@ public class PlayerController : MonoBehaviour
         _trayController.ClearAll();
     }
 
-    public void MoveFirstTilesToTempBoard()
+    public bool TryUseItem(ItemType itemType)
+    {
+        switch (itemType)
+        {
+            case ItemType.MoveToTempBoard:
+                return TryMoveFirstTilesToTempBoard();
+            case ItemType.Undo:
+            case ItemType.Shuffle:
+            case ItemType.Hammer:
+            case ItemType.PickBack:
+            default:
+                Debug.Log($"아직 구현되지 않은 아이템: {itemType}");
+                return false;
+        }
+    }
+
+    public bool TryMoveFirstTilesToTempBoard()
     {
         var tiles = _trayController.TakeFirst(3);
+        if (tiles.IsNullOrEmpty())
+        {
+            return false;
+        }
+
         _tempBoardController.StackTiles(tiles);
+        return true;
     }
 
     private void OnDisable()
