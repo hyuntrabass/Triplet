@@ -75,6 +75,24 @@ public class TrayController : MonoBehaviour
         }
     }
 
+    public List<TileView> TakeFirst(int count)
+    {
+        if (_tiles.Count == 0 || count <= 0)
+        {
+            return null;
+        }
+
+        int takeCount = Mathf.Min(count, _tiles.Count);
+
+        var targets = _tiles.GetRange(0, takeCount);
+        _tiles.RemoveRange(0, takeCount);
+
+        RearrangeTiles();
+        StateChanged?.Invoke();
+
+        return targets;
+    }
+
     private IEnumerator DestroyTileNextFrame(GameObject tileObject)
     {
         tileObject.SetActive(false);
