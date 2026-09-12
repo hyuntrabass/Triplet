@@ -128,7 +128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9158188}
-  - component: {fileID: 9158189}
   m_Layer: 5
   m_Name: ColumnAnchor_1
   m_TagString: Untagged
@@ -155,14 +154,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 46, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &9158189
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9158187}
-  m_CullTransparentMesh: 1
 --- !u!1 &26800414
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +163,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 26800415}
-  - component: {fileID: 26800416}
   m_Layer: 5
   m_Name: ColumnAnchor_2
   m_TagString: Untagged
@@ -199,14 +189,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 46, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &26800416
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26800414}
-  m_CullTransparentMesh: 1
 --- !u!1 &118907180
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +198,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 118907181}
-  - component: {fileID: 118907184}
   - component: {fileID: 118907182}
   - component: {fileID: 118907185}
   m_Layer: 5
@@ -274,14 +255,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!222 &118907184
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 118907180}
-  m_CullTransparentMesh: 1
 --- !u!114 &118907185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +267,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8328c4f827d6f264891cc751cf9e683a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TempTrayController
-  _columnAnchors: []
+  _columnAnchors:
+  - {fileID: 9158188}
+  - {fileID: 26800415}
+  - {fileID: 2032485894}
 --- !u!1 &177646659
 GameObject:
   m_ObjectHideFlags: 0
@@ -1778,7 +1754,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2032485894}
-  - component: {fileID: 2032485895}
   m_Layer: 5
   m_Name: ColumnAnchor_3
   m_TagString: Untagged
@@ -1805,14 +1780,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 46, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2032485895
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2032485893}
-  m_CullTransparentMesh: 1
 --- !u!1 &2105955016
 GameObject:
   m_ObjectHideFlags: 0
