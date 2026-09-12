@@ -8,7 +8,6 @@ public class BoardController : MonoBehaviour
     private TileView _tilePrefab;
     [SerializeField]
     private TrayController _trayController;
-    private bool _isInputEnabled = true;
 
     private readonly List<TileView> _spawnedTiles = new();
 
@@ -63,7 +62,7 @@ public class BoardController : MonoBehaviour
     {
         foreach (var tile in _spawnedTiles)
         {
-            tile.SetInteractable(_isInputEnabled && !IsBlocked(tile));
+            tile.SetInteractable(!IsBlocked(tile));
         }
     }
 
@@ -93,12 +92,6 @@ public class BoardController : MonoBehaviour
         }
 
         return false;
-    }
-
-    public void SetInputEnabled(bool value)
-    {
-        _isInputEnabled = value;
-        RefreshInteractableStates();
     }
 
     private void OnDestroy()

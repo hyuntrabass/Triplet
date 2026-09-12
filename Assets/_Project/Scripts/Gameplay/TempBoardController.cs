@@ -2,11 +2,14 @@ using Triplet.Core;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TempBoardController : MonoBehaviour
 {
     [SerializeField]
     private RectTransform[] _columnAnchors;
+    [SerializeField]
+    private TrayController _traycontroller;
 
     private Stack<TileView>[] _columns;
     private int _tileCount;
@@ -48,6 +51,8 @@ public class TempBoardController : MonoBehaviour
             column.Push(tile);
             _tileCount++;
 
+            tile.Clicked += HandleTileClicked;
+
             tile.transform.SetParent(_columnAnchors[i], false);
 
             var rect = (RectTransform)tile.transform;
@@ -59,5 +64,47 @@ public class TempBoardController : MonoBehaviour
         }
 
         StateChanged?.Invoke();
+    }
+
+    private void HandleTileClicked(TileView tile)
+    {
+        foreach (var item in _columns)
+        {
+            if (item.Count == 0 || item.Peek() != tile)
+            {
+                continue;
+            }
+
+            if (_traycontroller.TryAdd(tile) == false)
+            {
+                return;
+            }
+
+            item.Pop();
+            tile.Clicked -= HandleTileClicked;
+            _tileCount--;
+
+            if (item.Count > 0)
+            {
+                item.Peek().SetInteractable(true);
+            }
+
+            StateChanged?.Invoke();
+            return;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        foreach(var column in _columns)
+        {
+            foreach (var tile in column)
+            {
+                if (tile != null)
+                {
+                    tile.Clicked -= HandleTileClicked;
+                }
+            }
+        }
     }
 }

@@ -79,7 +79,7 @@ public class TrayController : MonoBehaviour
     {
         if (_tiles.Count == 0 || count <= 0)
         {
-            return null;
+            return new List<TileView>();
         }
 
         int takeCount = Mathf.Min(count, _tiles.Count);

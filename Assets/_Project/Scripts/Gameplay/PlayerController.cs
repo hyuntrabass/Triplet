@@ -38,8 +38,6 @@ public class PlayerController : MonoBehaviour
 
     private void RefreshPlayerState()
     {
-        _boardController.SetInputEnabled(!IsDown);
-
         if (_downIndicator != null)
         {
             _downIndicator.SetActive(IsDown);
@@ -67,7 +65,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public bool TryMoveFirstTilesToTempBoard()
+    private bool TryMoveFirstTilesToTempBoard()
     {
         var tiles = _trayController.TakeFirst(3);
         if (tiles.IsNullOrEmpty())
