@@ -13,7 +13,7 @@ public class TileView : MonoBehaviour
     private Image _image;
 
     public int TypeId => _typeId;
-    public int StackLevel { get; private set; }
+    public int StackLevel { get; set; }
 
     public event Action<TileView> Clicked;
 
