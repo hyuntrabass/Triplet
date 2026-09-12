@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     private bool TryMoveFirstTilesToTempBoard()
     {
         var tiles = _trayController.TakeFirst(3);
-        if (tiles.IsNullOrEmpty())
+        if (tiles.Count == 0)
         {
             return false;
         }

@@ -1,15 +1,14 @@
-using Triplet.Core;
 using System;
 using System.Collections.Generic;
+using Triplet.Core;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class TempBoardController : MonoBehaviour
 {
     [SerializeField]
     private RectTransform[] _columnAnchors;
     [SerializeField]
-    private TrayController _traycontroller;
+    private TrayController _trayController;
 
     private Stack<TileView>[] _columns;
     private int _tileCount;
@@ -75,7 +74,7 @@ public class TempBoardController : MonoBehaviour
                 continue;
             }
 
-            if (_traycontroller.TryAdd(tile) == false)
+            if (_trayController.TryAdd(tile) == false)
             {
                 return;
             }
