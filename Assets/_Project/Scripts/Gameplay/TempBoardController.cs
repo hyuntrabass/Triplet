@@ -1,4 +1,4 @@
-using Assets._Project.Scripts.Core;
+using Triplet.Core;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,13 +49,15 @@ public class TempBoardController : MonoBehaviour
             _tileCount++;
 
             tile.transform.SetParent(_columnAnchors[i], false);
-            tile.StackLevel = stackLevel;
 
             var rect = (RectTransform)tile.transform;
             rect.anchoredPosition = Vector2.up * (StackOffsetY * stackLevel);
 
             tile.transform.SetAsLastSibling();
             tile.SetInteractable(true);
+
         }
+
+        StateChanged?.Invoke();
     }
 }

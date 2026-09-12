@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets._Project.Scripts.Core
+namespace Triplet.Core
 {
-    public static class Extensions
+    public static class EnumerableExtensions
     {
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> list)
         {
-            return list != null && list.Count() == 0;
+            return list == null || !list.Any();
         }
     }
 }
