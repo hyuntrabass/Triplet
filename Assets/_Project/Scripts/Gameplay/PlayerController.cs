@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private TrayController _trayController;
     [SerializeField]
+    private TempBoardController _tempBoardController;
+    [SerializeField]
     private GameObject _downIndicator;
 
     public bool IsDown => _trayController.IsFull;
-    public bool IsClear => _boardController.IsEmpty;
+    public bool IsClear => _boardController.IsEmpty && _tempBoardController.IsEmpty;
 
     public event Action StateChanged;
 
@@ -19,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         _boardController.StateChanged += HandleStateChanged;
         _trayController.StateChanged += HandleStateChanged;
+        _tempBoardController.StateChanged += HandleStateChanged;
     }
 
     void Start()
@@ -47,9 +50,16 @@ public class PlayerController : MonoBehaviour
         _trayController.ClearAll();
     }
 
+    public void MoveFirstTilesToTempBoard()
+    {
+        var tiles = _trayController.TakeFirst(3);
+        _tempBoardController.StackTiles(tiles);
+    }
+
     private void OnDisable()
     {
         _boardController.StateChanged -= HandleStateChanged;
         _trayController.StateChanged -= HandleStateChanged;
+        _tempBoardController.StateChanged -= HandleStateChanged;
     }
 }
