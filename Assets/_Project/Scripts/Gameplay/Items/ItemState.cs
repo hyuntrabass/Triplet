@@ -9,8 +9,8 @@ public sealed class ItemState
 
     public ItemState(ItemDefinition definition)
     {
-        Definition = definition
-            ?? throw new ArgumentNullException(nameof(definition));
+        Definition = definition != null ? definition 
+            : throw new ArgumentNullException(nameof(definition));
     }
 
     public void Add(int amount = 1)
