@@ -10,6 +10,8 @@ public class BoardController : MonoBehaviour
     private TrayController _trayController;
     [SerializeField]
     private TileDefinition[] _tileDefinitions;
+    [SerializeField]
+    private BoardLevelDefinition _levelDefinition;
 
     private readonly List<TileView> _spawnedTiles = new();
     private int _initialTileCount;
@@ -33,57 +35,30 @@ public class BoardController : MonoBehaviour
 
     private void Start()
     {
-        SpawnTile(1, new Vector2(0, 30), 0);
-        SpawnTile(1, new Vector2(70, 30), 0);
-
-        SpawnTile(1, new Vector2(-70, -40), 0);
-        SpawnTile(2, new Vector2(0, -40), 0);
-        SpawnTile(3, new Vector2(70, -40), 0);
-
-        SpawnTile(1, new Vector2(-70, 0), 1);
-        SpawnTile(2, new Vector2(0, 0), 1);
-        SpawnTile(3, new Vector2(70, 0), 1);
-
-        SpawnTile(4, new Vector2(-70, 0), 2);
-        SpawnTile(4, new Vector2(0, 0), 2);
-        SpawnTile(4, new Vector2(70, 0), 2);
-
-        SpawnTile(1, new Vector2(-70, 0), 2);
-        SpawnTile(1, new Vector2(0, 0), 2);
-        SpawnTile(1, new Vector2(70, 0), 2);
-
-        SpawnTile(1, new Vector2(-70, 0), 2);
-        SpawnTile(1, new Vector2(0, 0), 2);
-        SpawnTile(1, new Vector2(70, 0), 2);
-
-        SpawnTile(1, new Vector2(-70, 0), 2);
-        SpawnTile(1, new Vector2(0, 0), 2);
-        SpawnTile(1, new Vector2(70, 0), 2);
-
-        SpawnTile(1, new Vector2(-70, 0), 2);
-        SpawnTile(1, new Vector2(0, 0), 2);
-        SpawnTile(1, new Vector2(70, 0), 2);
-
-        SpawnTile(1, new Vector2(-70, 0), 2);
-        SpawnTile(1, new Vector2(0, 0), 2);
-        SpawnTile(1, new Vector2(70, 0), 2);
-
-        SpawnTile(1, new Vector2(-70, 0), 2);
-        SpawnTile(1, new Vector2(0, 0), 2);
-        SpawnTile(1, new Vector2(70, 0), 2);
-
-        SpawnTile(1, new Vector2(-70, 0), 2);
-        SpawnTile(1, new Vector2(0, 0), 2);
-        SpawnTile(1, new Vector2(70, 0), 2);
-
-        SpawnTile(1, new Vector2(-70, 0), 2);
-        SpawnTile(1, new Vector2(0, 0), 2);
-        SpawnTile(1, new Vector2(70, 0), 2);
+        SpawnLevel();
 
         _initialTileCount = _spawnedTiles.Count;
 
         RefreshInteractableStates();
         StateChanged?.Invoke();
+    }
+
+    private void SpawnLevel()
+    {
+        if (_levelDefinition == null)
+        {
+            throw new InvalidOperationException("BoardLevelDefinition이 연결되지 않았습니다.");
+        }
+
+        if (_levelDefinition.Tiles.Count == 0)
+        {
+            throw new InvalidOperationException("레벨에 등록된 타일이 없습니다.");
+        }
+
+        foreach (var tileData in _levelDefinition.Tiles)
+        {
+            SpawnTile(tileData.TypeId, tileData.Position, tileData.StackLevel);
+        }
     }
 
     private void SpawnTile(int typeId, Vector2 position, int stackLevel)

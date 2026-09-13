@@ -12,4 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3ec680bf4c6dc94db773ebcae4c6e5e, type: 3}
   m_Name: TestLevel
   m_EditorClassIdentifier: Assembly-CSharp::BoardLevelDefinition
-  _tiles: []
+  _tiles:
+  - _typeId: 3
+    _position: {x: -70, y: -40}
+    _stackLevel: 0
+  - _typeId: 3
+    _position: {x: 0, y: -40}
+    _stackLevel: 0
+  - _typeId: 3
+    _position: {x: 70, y: -40}
+    _stackLevel: 0
+  - _typeId: 2
+    _position: {x: -70, y: 0}
+    _stackLevel: 1
+  - _typeId: 2
+    _position: {x: 0, y: 0}
+    _stackLevel: 1
+  - _typeId: 2
+    _position: {x: 70, y: 0}
+    _stackLevel: 1
+  - _typeId: 1
+    _position: {x: -70, y: 40}
+    _stackLevel: 2
+  - _typeId: 1
+    _position: {x: 0, y: 40}
+    _stackLevel: 2
+  - _typeId: 1
+    _position: {x: 70, y: 40}
+    _stackLevel: 2

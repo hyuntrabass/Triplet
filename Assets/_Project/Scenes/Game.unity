@@ -4830,6 +4830,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9235a70fdfe2dd347be6c16877aaf063, type: 2}
   - {fileID: 11400000, guid: 8e9dadce596d6ba4c9b0ff94ebd3117d, type: 2}
   - {fileID: 11400000, guid: edad62f7b9f069148bf31d6be0d4affa, type: 2}
+  _levelDefinition: {fileID: 11400000, guid: 39c38ec6a1c152b4daf558321aa3aec2, type: 2}
 --- !u!1 &908418566
 GameObject:
   m_ObjectHideFlags: 0
@@ -7271,6 +7272,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9235a70fdfe2dd347be6c16877aaf063, type: 2}
   - {fileID: 11400000, guid: 8e9dadce596d6ba4c9b0ff94ebd3117d, type: 2}
   - {fileID: 11400000, guid: edad62f7b9f069148bf31d6be0d4affa, type: 2}
+  _levelDefinition: {fileID: 11400000, guid: 39c38ec6a1c152b4daf558321aa3aec2, type: 2}
 --- !u!114 &1693021700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7553,6 +7555,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9235a70fdfe2dd347be6c16877aaf063, type: 2}
   - {fileID: 11400000, guid: 8e9dadce596d6ba4c9b0ff94ebd3117d, type: 2}
   - {fileID: 11400000, guid: edad62f7b9f069148bf31d6be0d4affa, type: 2}
+  _levelDefinition: {fileID: 11400000, guid: 39c38ec6a1c152b4daf558321aa3aec2, type: 2}
 --- !u!114 &1817475010
 MonoBehaviour:
   m_ObjectHideFlags: 0
