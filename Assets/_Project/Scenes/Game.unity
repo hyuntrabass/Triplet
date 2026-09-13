@@ -1150,6 +1150,7 @@ MonoBehaviour:
   _orderController: {fileID: 758395443}
   _requiredCountText: {fileID: 1513437747}
   _progressText: {fileID: 771044908}
+  _targetIcon: {fileID: 340439139}
 --- !u!1 &703484879
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,7 +1394,8 @@ MonoBehaviour:
   - {fileID: 1338122234}
   _itemBars:
   - {fileID: 873281689}
-  _targetTypeId: 1
+  _targetCandidates:
+  - {fileID: 11400000, guid: 52d72f2b0100e9747a3913ae632ae086, type: 2}
   _shortOrderStartAfterCompletions: 2
 --- !u!1 &771044906
 GameObject:
