@@ -6,8 +6,6 @@ public class OrderController : MonoBehaviour
     [SerializeField]
     private PlayerController[] _players;
     [SerializeField]
-    private ItemBarController[] _itemBars;
-    [SerializeField]
     private TileDefinition[] _targetCandidates;
     [SerializeField, Min(1)]
     private int _shortOrderStartAfterCompletions = 5;
@@ -60,9 +58,9 @@ public class OrderController : MonoBehaviour
 
     private void CompleteOrder()
     {
-        foreach (var itemBar in _itemBars)
+        foreach (var player in _players)
         {
-            itemBar.GrantRandomItem();
+            player.GrantRandomItem();
         }
 
         Debug.Log($"주문 완료: TypeId {_target.TypeId}");

@@ -7,43 +7,46 @@ public class ItemBarController : MonoBehaviour
     [SerializeField]
     private ItemButtonView[] _buttons;
     [SerializeField]
-    private ItemDefinition[] _loadout;
-    [SerializeField]
     private PlayerController _playerController;
-
-    private readonly List<ItemState> _states = new();
 
     private void Start()
     {
-        if (_buttons.Length != _loadout.Length)
-        {
-            Debug.LogError("아이템 버튼과 아이템 정의의 개수가 다릅니다.", this);
+        Bind(_playerController);
+    }
 
-            enabled = false;
+    public void Bind(PlayerController player)
+    {
+        if (player == null)
+        {
+            throw new System.ArgumentNullException(nameof(player));
+        }
+
+        if (_buttons.Length != player.ItemStates.Count)
+        {
+            Debug.LogError($"아이템 버튼 수({_buttons.Length})와 아이템 상태 수({player.ItemStates.Count})가 다릅니다.");
             return;
         }
 
-        for (int i = 0; i < _loadout.Length; i++)
+        UnsubscribeButtons();
+
+        _playerController = player;
+
+        for (int i = 0; i < _buttons.Length; i++)
         {
-            var state = new ItemState(_loadout[i]);
-
-            _states.Add(state);
-
-            _buttons[i].Init(state);
+            _buttons[i].Init(player.ItemStates[i]);
             _buttons[i].Clicked += HandleItemClicked;
         }
     }
 
-    [ContextMenu("Grant Random Item")]
-    public void GrantRandomItem()
+    private void UnsubscribeButtons()
     {
-        if (_states.Count == 0)
+        foreach (ItemButtonView button in _buttons)
         {
-            return;
+            if (button != null)
+            {
+                button.Clicked -= HandleItemClicked;
+            }
         }
-
-        int index = Random.Range(0, _states.Count);
-        _states[index].Add();
     }
 
     private void HandleItemClicked(ItemState state)
@@ -60,12 +63,6 @@ public class ItemBarController : MonoBehaviour
 
     private void OnDestroy()
     {
-        foreach (var item in _buttons)
-        {
-            if (item != null)
-            {
-                item.Clicked -= HandleItemClicked;
-            }
-        }
+        UnsubscribeButtons();
     }
 }

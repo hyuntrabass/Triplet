@@ -5,7 +5,7 @@ public class ItemInventory
 {
     private readonly List<ItemState> _states = new();
 
-    public IReadOnlyList<ItemState> State => _states;
+    public IReadOnlyList<ItemState> States => _states;
     
     public ItemInventory(IReadOnlyList<ItemDefinition> loadout)
     {
