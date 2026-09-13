@@ -11,6 +11,9 @@ public class TileView : MonoBehaviour
 
     public int TypeId => _definition.TypeId;
     public int StackLevel { get; private set; }
+    public bool IsInteractable => _button.interactable;
+
+    private Action<TileView> _selectionHandler;
 
     public event Action<TileView> Clicked;
 
@@ -43,13 +46,41 @@ public class TileView : MonoBehaviour
         }
     }
 
+    public void BeginSelection(Action<TileView> selectionHandler)
+    {
+        if (selectionHandler == null)
+        {
+            throw new ArgumentNullException(nameof(selectionHandler));
+        }
+
+        if (_selectionHandler != null)
+        {
+            throw new InvalidOperationException($"{name}은 이미 선택 모드입니다.");
+        }
+
+        _selectionHandler = selectionHandler;
+        SetInteractable(true);
+    }
+
+    public void EndSelection()
+    {
+        _selectionHandler = null;
+    }
+
     public void SetInteractable(bool value)
     {
         _button.interactable = value;
+        _image.raycastTarget = value;
     }
 
     private void HandleClick()
     {
+        if (_selectionHandler != null)
+        {
+            _selectionHandler.Invoke(this);
+            return;
+        }
+
         Debug.Log($"타일클릭: {TypeId}");
         Clicked?.Invoke(this);
     }
