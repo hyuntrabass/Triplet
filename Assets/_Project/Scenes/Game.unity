@@ -645,6 +645,7 @@ GameObject:
   - component: {fileID: 180256504}
   - component: {fileID: 180256503}
   - component: {fileID: 180256502}
+  - component: {fileID: 180256506}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -740,6 +741,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &180256506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180256501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffb1ccde62d3c154881a5c51283af136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerScreenController
+  _localPlayer: {fileID: 1338122234}
+  _ItemBar: {fileID: 873281689}
+  _itemBarCanvasGroup: {fileID: 873281690}
+  _bindings:
+  - _player: {fileID: 1338122234}
+    _profile: {fileID: 908418568}
+    _screen: {fileID: 1338122235}
 --- !u!1 &216450442
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,6 +2155,7 @@ GameObject:
   - component: {fileID: 873281687}
   - component: {fileID: 873281688}
   - component: {fileID: 873281689}
+  - component: {fileID: 873281690}
   m_Layer: 5
   m_Name: ItemBar
   m_TagString: Untagged
@@ -2207,6 +2228,18 @@ MonoBehaviour:
   - {fileID: 390373297}
   - {fileID: 166415948}
   _playerController: {fileID: 1338122234}
+--- !u!225 &873281690
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873281686}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &884071667
 GameObject:
   m_ObjectHideFlags: 0
@@ -3164,6 +3197,7 @@ GameObject:
   - component: {fileID: 1338122233}
   - component: {fileID: 1338122232}
   - component: {fileID: 1338122234}
+  - component: {fileID: 1338122235}
   m_Layer: 5
   m_Name: GameArea
   m_TagString: Untagged
@@ -3251,6 +3285,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ef0ad01566a4f354a862c712e87ccc4a, type: 2}
   - {fileID: 11400000, guid: eab1a540a7d944a469da53e9ee2116fa, type: 2}
   - {fileID: 11400000, guid: 9eb13fec0ba313244afc86d068b56ea4, type: 2}
+--- !u!225 &1338122235
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338122230}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1391608878
 GameObject:
   m_ObjectHideFlags: 0
