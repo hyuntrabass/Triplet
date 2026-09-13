@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BoardController : MonoBehaviour
@@ -55,7 +56,9 @@ public class BoardController : MonoBehaviour
             throw new InvalidOperationException("레벨에 등록된 타일이 없습니다.");
         }
 
-        foreach (var tileData in _levelDefinition.Tiles)
+        var orderedTiles = _levelDefinition.Tiles.OrderBy(x => x.StackLevel);
+
+        foreach (var tileData in orderedTiles)
         {
             SpawnTile(tileData.TypeId, tileData.Position, tileData.StackLevel);
         }
