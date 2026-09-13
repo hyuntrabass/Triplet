@@ -51,14 +51,7 @@ public class ItemBarController : MonoBehaviour
 
     private void HandleItemClicked(ItemState state)
     {
-        bool succeeded = _playerController.TryUseItem(state.Definition.Type);
-
-        if (succeeded == false)
-        {
-            return;
-        }
-
-        state.TryConsume();
+        _playerController.TryUseItem(state);
     }
 
     private void OnDestroy()

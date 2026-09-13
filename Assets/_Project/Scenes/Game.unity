@@ -1392,8 +1392,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OrderController
   _players:
   - {fileID: 1338122234}
-  _itemBars:
-  - {fileID: 873281689}
   _targetCandidates:
   - {fileID: 11400000, guid: 52d72f2b0100e9747a3913ae632ae086, type: 2}
   _shortOrderStartAfterCompletions: 2
@@ -1746,10 +1744,6 @@ MonoBehaviour:
   - {fileID: 1173166581}
   - {fileID: 390373297}
   - {fileID: 166415948}
-  _loadout:
-  - {fileID: 11400000, guid: ef0ad01566a4f354a862c712e87ccc4a, type: 2}
-  - {fileID: 11400000, guid: eab1a540a7d944a469da53e9ee2116fa, type: 2}
-  - {fileID: 11400000, guid: 9eb13fec0ba313244afc86d068b56ea4, type: 2}
   _playerController: {fileID: 1338122234}
 --- !u!1 &884071667
 GameObject:
@@ -2516,10 +2510,8 @@ MonoBehaviour:
   _downIndicator: {fileID: 0}
   _itemLoadout:
   - {fileID: 11400000, guid: ef0ad01566a4f354a862c712e87ccc4a, type: 2}
-  - {fileID: 11400000, guid: e4b07a4f239ebb64db913cc4b846b275, type: 2}
   - {fileID: 11400000, guid: eab1a540a7d944a469da53e9ee2116fa, type: 2}
   - {fileID: 11400000, guid: 9eb13fec0ba313244afc86d068b56ea4, type: 2}
-  - {fileID: 11400000, guid: 0e2c72d6b69f65c4582465a95b6d3c6d, type: 2}
 --- !u!1 &1391608878
 GameObject:
   m_ObjectHideFlags: 0

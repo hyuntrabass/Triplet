@@ -71,7 +71,33 @@ public class PlayerController : MonoBehaviour
         _trayController.ClearAll();
     }
 
-    public bool TryUseItem(ItemType itemType)
+    public bool TryUseItem(ItemState state)
+    {
+        if (state == null)
+        {
+            throw new ArgumentNullException(nameof(state));
+        }
+
+        if (_itemInventory.Contains(state) == false)
+        {
+            Debug.LogWarning("다른 플레이어의 아이템은 사용할 수 없습니다.");
+            return false;
+        }
+
+        if (state.CanUse == false)
+        {
+            return false;
+        }
+
+        if (TryApplyItemEffect(state.Definition.Type) == false)
+        {
+            return false;
+        }
+
+        return state.TryConsume();
+    }
+
+    private bool TryApplyItemEffect(ItemType itemType)
     {
         switch (itemType)
         {

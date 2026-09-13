@@ -39,4 +39,9 @@ public class ItemInventory
 
         return grantedState;
     }
+
+    public bool Contains(ItemState state)
+    {
+        return _states.Contains(state);
+    }
 }
