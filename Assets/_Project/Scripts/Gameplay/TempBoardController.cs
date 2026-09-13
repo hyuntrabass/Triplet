@@ -65,32 +65,59 @@ public class TempBoardController : MonoBehaviour
         StateChanged?.Invoke();
     }
 
-    private void HandleTileClicked(TileView tile)
+    public IReadOnlyList<TileView> GetTopTiles()
     {
-        foreach (var item in _columns)
+        var topTiles = new List<TileView>();
+
+        foreach (var column in _columns)
         {
-            if (item.Count == 0 || item.Peek() != tile)
+            if (column.Count > 0)
+            {
+                topTiles.Add(column.Peek());
+            }
+        }
+
+        return topTiles;
+    }
+
+    public bool TryDetachTile(TileView tile)
+    {
+        if (tile == null)
+        {
+            return false;
+        }
+
+        foreach (var column in _columns)
+        {
+            if (column.Count == 0 || column.Peek() != tile)
             {
                 continue;
             }
 
-            if (_trayController.TryAdd(tile) == false)
-            {
-                return;
-            }
-
-            item.Pop();
+            column.Pop();
             tile.Clicked -= HandleTileClicked;
             _tileCount--;
 
-            if (item.Count > 0)
+            if (column.Count > 0)
             {
-                item.Peek().SetInteractable(true);
+                column.Peek().SetInteractable(true);
             }
 
             StateChanged?.Invoke();
+            return true;
+        }
+
+        return false;
+    }
+
+    private void HandleTileClicked(TileView tile)
+    {
+        if (_trayController.TryAdd(tile) == false)
+        {
             return;
         }
+
+        TryDetachTile(tile);
     }
 
     private void OnDestroy()

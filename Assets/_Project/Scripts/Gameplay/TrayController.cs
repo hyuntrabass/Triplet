@@ -57,6 +57,24 @@ public class TrayController : MonoBehaviour
         TilesRemoved?.Invoke(typeId, removedCount);
     }
 
+    public IReadOnlyList<TileView> GetTiles()
+    {
+        return new List<TileView>(_tiles);
+    }
+
+    public bool TryDetachTile(TileView tile)
+    {
+        if (tile == null || _tiles.Remove(tile) == false)
+        {
+            return false;
+        }
+
+        RearrangeTiles();
+        StateChanged?.Invoke();
+
+        return true;
+    }
+
     public void ClearAll()
     {
         _tiles.ForEach(x =>

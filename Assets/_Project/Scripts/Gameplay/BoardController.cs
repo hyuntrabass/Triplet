@@ -90,6 +90,26 @@ public class BoardController : MonoBehaviour
         return definition;
     }
 
+    public IReadOnlyList<TileView> GetExposedTiles()
+    {
+        return _spawnedTiles.Where(x => IsBlocked(x) == false).ToList();
+    }
+
+    public bool TryDetachTile(TileView tile)
+    {
+        if (tile == null || _spawnedTiles.Remove(tile) == false)
+        {
+            return false;
+        }
+
+        tile.Clicked -= HandleClicked;
+
+        RefreshInteractableStates();
+        StateChanged?.Invoke();
+
+        return true;
+    }
+
     private void HandleClicked(TileView tile)
     {
         if (_trayController.TryAdd(tile) == false)
@@ -98,11 +118,7 @@ public class BoardController : MonoBehaviour
             return;
         }
 
-        tile.Clicked -= HandleClicked;
-        _spawnedTiles.Remove(tile);
-        RefreshInteractableStates();
-
-        StateChanged?.Invoke();
+        TryDetachTile(tile);
     }
 
     private void RefreshInteractableStates()

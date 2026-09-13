@@ -51,6 +51,32 @@ public class PlayerController : MonoBehaviour
         TilesRemoved?.Invoke(typeId, count);
     }
 
+    public IReadOnlyList<TileView> GetWarehouseCandidates()
+    {
+        var candidates = new List<TileView>();
+
+        candidates.AddRange(_boardController.GetExposedTiles());
+        candidates.AddRange(_trayController.GetTiles());
+        candidates.AddRange(_tempBoardController.GetTopTiles());
+
+        return candidates;
+    }
+
+    public bool TryDetachTile(TileView tile)
+    {
+        if (_boardController.TryDetachTile(tile))
+        {
+            return true;
+        }
+
+        if (_trayController.TryDetachTile(tile))
+        {
+            return true;
+        }
+
+        return _tempBoardController.TryDetachTile(tile);
+    }
+
     public void ClearMainTray()
     {
         _trayController.ClearAll();
