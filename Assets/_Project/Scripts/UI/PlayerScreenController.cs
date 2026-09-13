@@ -12,6 +12,10 @@ public class PlayerScreenController : MonoBehaviour
     [SerializeField]
     private PlayerScreenBinding[] _bindings;
 
+    public PlayerController DisplayedPlayer { get; private set; }
+
+    public event Action<PlayerController> DisplayedPlayerChanged;
+
     private void OnEnable()
     {
         foreach (var binding in _bindings)
@@ -55,6 +59,9 @@ public class PlayerScreenController : MonoBehaviour
 
         _itemBarCanvasGroup.interactable = isLocalPlayer;
         _itemBarCanvasGroup.blocksRaycasts = isLocalPlayer;
+
+        DisplayedPlayer = player;
+        DisplayedPlayerChanged?.Invoke(player);
 
         Debug.Log($"표시 플레이어 변경: {player.name}");
     }
