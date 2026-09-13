@@ -24,6 +24,11 @@ public class SharedWarehouseController : MonoBehaviour
     private void OnEnable()
     {
         _screenController.DisplayedPlayerChanged += HandleDisplayedPlayerChanged;
+
+        foreach (var item in _slotViews)
+        {
+            item.Clicked += HandleSlotClicked;
+        }
     }
 
     private void Start()
@@ -34,6 +39,20 @@ public class SharedWarehouseController : MonoBehaviour
     private void HandleDisplayedPlayerChanged(PlayerController displayedPlayer)
     {
         RefreshOwnerContext(displayedPlayer);
+    }
+
+    private void HandleSlotClicked(WarehouseSlotView slotView)
+    {
+        if (slotView.CanAdd)
+        {
+            Debug.Log($"{slotView.Owner.name}의 창고에 넣을 타일 선택 시작");
+            return;
+        }
+
+        if (slotView.State.Status == WarehouseSlotStatus.Occupied)
+        {
+            Debug.Log($"{slotView.Owner.name}의 창고 타일 가져가기");
+        }
     }
 
     private void RefreshOwnerContext(PlayerController displayedPlayer)
@@ -51,5 +70,10 @@ public class SharedWarehouseController : MonoBehaviour
     private void OnDisable()
     {
         _screenController.DisplayedPlayerChanged -= HandleDisplayedPlayerChanged;
+
+        foreach (var item in _slotViews)
+        {
+            item.Clicked -= HandleSlotClicked;
+        }
     }
 }

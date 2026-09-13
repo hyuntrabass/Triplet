@@ -1,9 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-using UnityEditor.EditorTools;
 
-[RequireComponent(typeof(WarehouseSlotController))]
+[RequireComponent(typeof(WarehouseSlotController), typeof(Button))]
 public class WarehouseSlotView : MonoBehaviour
 {
     [SerializeField]
@@ -15,15 +14,20 @@ public class WarehouseSlotView : MonoBehaviour
 
     private WarehouseSlotController  _controller;
     private bool _isOwnerContext;
+    private Button _button;
 
     public RectTransform TileAnchor => _tileAnchor;
     public PlayerController Owner => _controller.Owner;
+    public WarehouseSlotState State => _controller.State;
 
     public bool CanAdd => _isOwnerContext && _controller.State.Status == WarehouseSlotStatus.Ready;
+
+    public event Action<WarehouseSlotView> Clicked;
 
     private void Awake()
     {
         _controller = GetComponent<WarehouseSlotController>();
+        _button = GetComponent<Button>();
 
         if (_shutterImage == null ||
             _plusObject == null ||
@@ -47,11 +51,17 @@ public class WarehouseSlotView : MonoBehaviour
     private void OnEnable()
     {
         _controller.StateChanged += HandleStateChanged;
+        _button.onClick.AddListener(HandleClick);
     }
 
     private void Start()
     {
         RefreshView();
+    }
+
+    private void HandleClick()
+    {
+        Clicked?.Invoke(this);
     }
 
     private void HandleStateChanged(WarehouseSlotController controller)
@@ -63,17 +73,20 @@ public class WarehouseSlotView : MonoBehaviour
     {
         WarehouseSlotState state = _controller.State;
 
-        float ChargeRatio = (float)state.Charge / WarehouseSlotState.RequiredCharge;
+        float chargeRatio = (float)state.Charge / WarehouseSlotState.RequiredCharge;
 
-        _shutterImage.fillAmount = 1f - ChargeRatio;
+        _shutterImage.fillAmount = 1f - chargeRatio;
 
         bool showPlus = _isOwnerContext && state.Status != WarehouseSlotStatus.Occupied;
-
         _plusObject.SetActive(showPlus);
+
+        bool canTake = state.Status == WarehouseSlotStatus.Occupied;
+        _button.interactable = CanAdd || canTake;
     }
 
     private void OnDisable()
     {
         _controller.StateChanged -= HandleStateChanged;
+        _button.onClick.RemoveListener(HandleClick);
     }
 }
