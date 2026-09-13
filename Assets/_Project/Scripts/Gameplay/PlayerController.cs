@@ -1,5 +1,4 @@
 using System;
-using Triplet.Core;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -17,12 +16,14 @@ public class PlayerController : MonoBehaviour
     public bool IsClear => _boardController.IsEmpty && _tempBoardController.IsEmpty;
 
     public event Action StateChanged;
+    public event Action<int, int> TilesRemoved;
 
     private void OnEnable()
     {
         _boardController.StateChanged += HandleStateChanged;
         _trayController.StateChanged += HandleStateChanged;
         _tempBoardController.StateChanged += HandleStateChanged;
+        _trayController.TilesRemoved += HandleTilesRemoved;
     }
 
     void Start()
@@ -34,6 +35,11 @@ public class PlayerController : MonoBehaviour
     {
         RefreshPlayerState();
         StateChanged?.Invoke();
+    }
+
+    private void HandleTilesRemoved(int typeId, int count)
+    {
+        TilesRemoved?.Invoke(typeId, count);
     }
 
     private void RefreshPlayerState()
@@ -82,5 +88,6 @@ public class PlayerController : MonoBehaviour
         _boardController.StateChanged -= HandleStateChanged;
         _trayController.StateChanged -= HandleStateChanged;
         _tempBoardController.StateChanged -= HandleStateChanged;
+        _trayController.TilesRemoved -= HandleTilesRemoved;
     }
 }

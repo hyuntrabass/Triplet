@@ -14,6 +14,7 @@ public class TrayController : MonoBehaviour
     public bool IsFull => _tiles.Count >= _slots.Length;
 
     public event Action StateChanged;
+    public event Action<int, int> TilesRemoved;
 
     public bool TryAdd(TileView tile)
     {
@@ -44,6 +45,8 @@ public class TrayController : MonoBehaviour
             return;
         }
 
+        int removedCount = matchedTiles.Count;
+
         matchedTiles.ForEach(x =>
         {
             _tiles.Remove(x);
@@ -51,6 +54,7 @@ public class TrayController : MonoBehaviour
         });
 
         RearrangeTiles();
+        TilesRemoved?.Invoke(typeId, removedCount);
     }
 
     public void ClearAll()
