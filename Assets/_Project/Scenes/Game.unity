@@ -1839,6 +1839,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BoardController
   _tilePrefab: {fileID: 3067559364915818915, guid: 778b0dcffe0f5f545bf37149afaef95f, type: 3}
   _trayController: {fileID: 858324392}
+  _tileDefinitions:
+  - {fileID: 11400000, guid: 52d72f2b0100e9747a3913ae632ae086, type: 2}
+  - {fileID: 11400000, guid: 9235a70fdfe2dd347be6c16877aaf063, type: 2}
+  - {fileID: 11400000, guid: 8e9dadce596d6ba4c9b0ff94ebd3117d, type: 2}
 --- !u!1 &965311625
 GameObject:
   m_ObjectHideFlags: 0

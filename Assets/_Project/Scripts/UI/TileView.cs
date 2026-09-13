@@ -5,14 +5,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button), typeof(Image))]
 public class TileView : MonoBehaviour
 {
-    [SerializeField] 
-    private int _typeId;
     private Button _button;
-    [SerializeField] 
-    private Color[] _typeColors;
     private Image _image;
+    private TileDefinition _definition;
 
-    public int TypeId => _typeId;
+    public int TypeId => _definition.TypeId;
     public int StackLevel { get; private set; }
 
     public event Action<TileView> Clicked;
@@ -24,15 +21,25 @@ public class TileView : MonoBehaviour
         _image = GetComponent<Image>();
     }
 
-    public void Init(int typeId, int stackLevel)
+    public void Init(TileDefinition definition, int stackLevel)
     {
-        _typeId = typeId;
+        if (definition == null)
+        {
+            throw new ArgumentNullException(nameof(definition));
+        }
+
+        _definition = definition;
         StackLevel = stackLevel;
 
-        if (_typeColors.Length > 0)
+        if (_definition.Sprite != null)
         {
-            int colorIndex = (typeId - 1) % _typeColors.Length;
-            _image.color = _typeColors[colorIndex];
+            _image.sprite = _definition.Sprite;
+            _image.color = Color.white;
+        }
+        else
+        {
+            _image.sprite = null;
+            _image.color = _definition.PlaceholderColor;
         }
     }
 
@@ -43,8 +50,7 @@ public class TileView : MonoBehaviour
 
     private void HandleClick()
     {
-        Debug.Log($"타일클릭: {_typeId}");
-
+        Debug.Log($"타일클릭: {TypeId}");
         Clicked?.Invoke(this);
     }
 }
