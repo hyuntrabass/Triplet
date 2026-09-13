@@ -82,6 +82,16 @@ public class PlayerController : MonoBehaviour
         _trayController.ClearAll();
     }
 
+    public bool TryAddToTray(TileView tile)
+    {
+        if (tile == null)
+        {
+            throw new ArgumentNullException(nameof(tile));
+        }
+
+        return _trayController.TryAdd(tile);
+    }
+
     public bool TryUseItem(ItemState state)
     {
         if (state == null)

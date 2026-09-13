@@ -54,7 +54,7 @@ public class SharedWarehouseController : MonoBehaviour
 
         if (slotView.State.Status == WarehouseSlotStatus.Occupied)
         {
-            Debug.Log($"{slotView.Owner.name}의 창고 타일 가져가기");
+            TryTakeStoredTile(slotView);
         }
     }
 
@@ -84,6 +84,25 @@ public class SharedWarehouseController : MonoBehaviour
         tileRect.localScale = Vector3.one;
 
         tile.SetInteractable(false);
+    }
+
+    private void TryTakeStoredTile(WarehouseSlotView slotView)
+    {
+        if (_localPlayer.IsDown)
+        {
+            Debug.Log("트레이가 가득 차서 공용창고 타일을 가져갈 수 없습니다.");
+            return;
+        }
+
+        if (slotView.TryTake(out TileView tile) == false)
+        {
+            return;
+        }
+
+        if (_localPlayer.TryAddToTray(tile) == false)
+        {
+            throw new InvalidOperationException("창고에서 타일을 꺼낸 뒤 트레이 추가에 실패했습니다.");
+        }
     }
 
     private void BeginStoreSelection(WarehouseSlotView slotView)

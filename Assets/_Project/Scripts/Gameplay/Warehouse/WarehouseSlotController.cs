@@ -34,6 +34,11 @@ public class WarehouseSlotController : MonoBehaviour
         return _state.TryStore(tile);
     }
 
+    public bool TryTake(out TileView tile)
+    {
+        return _state.TryTake(out tile);
+    }
+
     private void HandleTilesRemoved(int typeId, int removedTileCount)
     {
         _state.AddMatchedTiles(removedTileCount);

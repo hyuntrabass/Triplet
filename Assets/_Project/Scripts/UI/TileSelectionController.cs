@@ -124,7 +124,7 @@ public class TileSelectionController : MonoBehaviour
             }
         }
 
-        if (_snapshot.Count < 0)
+        if (_snapshot.Count == 0)
         {
             return false;
         }
