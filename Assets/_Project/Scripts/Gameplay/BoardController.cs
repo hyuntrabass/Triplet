@@ -110,6 +110,34 @@ public class BoardController : MonoBehaviour
         return true;
     }
 
+    public IReadOnlyList<int> RemoveExposedTiles()
+    {
+        IReadOnlyList<TileView> exposedTiles = GetExposedTiles();
+
+        if (exposedTiles.Count == 0)
+        {
+            return Array.Empty<int>();
+        }
+
+        var removedTypeIds = new List<int>(exposedTiles.Count);
+
+        foreach (var tile in exposedTiles)
+        {
+            removedTypeIds.Add(tile.TypeId);
+
+            tile.Clicked -= HandleClicked;
+            _spawnedTiles.Remove(tile);
+
+            tile.gameObject.SetActive(false);
+            Destroy(tile.gameObject);
+        }
+
+        RefreshInteractableStates();
+        StateChanged?.Invoke();
+
+        return removedTypeIds;
+    }
+
     private void HandleClicked(TileView tile)
     {
         if (_trayController.TryAdd(tile) == false)

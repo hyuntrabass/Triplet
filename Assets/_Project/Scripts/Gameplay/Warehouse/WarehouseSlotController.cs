@@ -25,7 +25,7 @@ public class WarehouseSlotController : MonoBehaviour
 
     private void OnEnable()
     {
-        _owner.TilesRemoved += HandleTilesRemoved;
+        _owner.TilesMatched += HandleTilesRemoved;
         _state.Changed += HandleSlotStateChanged;
     }
 
@@ -55,7 +55,7 @@ public class WarehouseSlotController : MonoBehaviour
 
     private void OnDisable()
     {
-        _owner.TilesRemoved -= HandleTilesRemoved;
+        _owner.TilesMatched -= HandleTilesRemoved;
         _state.Changed -= HandleSlotStateChanged;
     }
 }

@@ -26,7 +26,7 @@ public class OrderController : MonoBehaviour
     {
         foreach (var player in _players)
         {
-            player.TilesRemoved += HandleTilesRemoved;
+            player.OrderTilesRemoved += HandleTilesRemoved;
         }
     }
 
@@ -107,7 +107,7 @@ public class OrderController : MonoBehaviour
     {
         foreach (var player in _players)
         {
-            player.TilesRemoved -= HandleTilesRemoved;
+            player.OrderTilesRemoved -= HandleTilesRemoved;
         }
     }
 }

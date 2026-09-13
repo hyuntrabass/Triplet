@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -21,7 +22,8 @@ public class PlayerController : MonoBehaviour
     public float ClearProgress => _boardController.ClearProgress;
 
     public event Action StateChanged;
-    public event Action<int, int> TilesRemoved;
+    public event Action<int, int> OrderTilesRemoved;
+    public event Action<int, int> TilesMatched;
 
     private void Awake()
     {
@@ -48,7 +50,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleTilesRemoved(int typeId, int count)
     {
-        TilesRemoved?.Invoke(typeId, count);
+        OrderTilesRemoved?.Invoke(typeId, count);
+        TilesMatched?.Invoke(typeId, count);
     }
 
     public IReadOnlyList<TileView> GetWarehouseCandidates()
@@ -60,6 +63,23 @@ public class PlayerController : MonoBehaviour
         candidates.AddRange(_tempBoardController.GetTopTiles());
 
         return candidates;
+    }
+
+    private bool TryUseHammer()
+    {
+        IReadOnlyList<int> removedTypeIds = _boardController.RemoveExposedTiles();
+
+        if (removedTypeIds.Count == 0)
+        {
+            return false;
+        }
+
+        foreach (var group in removedTypeIds.GroupBy(x => x))
+        {
+            OrderTilesRemoved?.Invoke(group.Key, group.Count());
+        }
+
+        return true;
     }
 
     public bool TryDetachTile(TileView tile)
@@ -124,9 +144,10 @@ public class PlayerController : MonoBehaviour
         {
             case ItemType.MoveToTempBoard:
                 return TryMoveFirstTilesToTempBoard();
+            case ItemType.Hammer:
+                return TryUseHammer();
             case ItemType.Undo:
             case ItemType.Shuffle:
-            case ItemType.Hammer:
             case ItemType.PickBack:
             default:
                 Debug.Log($"아직 구현되지 않은 아이템: {itemType}");
