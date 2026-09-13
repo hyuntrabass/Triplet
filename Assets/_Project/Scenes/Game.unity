@@ -1066,6 +1066,7 @@ GameObject:
   - component: {fileID: 587743430}
   - component: {fileID: 587743432}
   - component: {fileID: 587743431}
+  - component: {fileID: 587743433}
   m_Layer: 5
   m_Name: OrderView
   m_TagString: Untagged
@@ -1134,6 +1135,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587743429}
   m_CullTransparentMesh: 1
+--- !u!114 &587743433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587743429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfddbca394dab1b46ac711549fa6c403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrderView
+  _orderController: {fileID: 758395443}
+  _requiredCountText: {fileID: 1513437747}
+  _progressText: {fileID: 771044908}
 --- !u!1 &703484879
 GameObject:
   m_ObjectHideFlags: 0
