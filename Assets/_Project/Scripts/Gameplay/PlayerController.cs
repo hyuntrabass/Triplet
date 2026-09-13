@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool IsDown => _trayController.IsFull;
     public bool IsClear => _boardController.IsEmpty && _tempBoardController.IsEmpty;
     public IReadOnlyList<ItemState> ItemStates => _itemInventory.States;
+    public float ClearProgress => _boardController.ClearProgress;
 
     public event Action StateChanged;
     public event Action<int, int> TilesRemoved;

@@ -12,8 +12,22 @@ public class BoardController : MonoBehaviour
     private TileDefinition[] _tileDefinitions;
 
     private readonly List<TileView> _spawnedTiles = new();
+    private int _initialTileCount;
 
     public bool IsEmpty => _spawnedTiles.Count == 0;
+    public int RemainingTileCount => _spawnedTiles.Count;
+    public float ClearProgress
+    {
+        get
+        {
+            if (_initialTileCount == 0)
+            {
+                return 0f;
+            }
+
+            return 1f - (float)RemainingTileCount / _initialTileCount;
+        }
+    }
 
     public event Action StateChanged;
 
@@ -66,7 +80,10 @@ public class BoardController : MonoBehaviour
         SpawnTile(1, new Vector2(0, 0), 2);
         SpawnTile(1, new Vector2(70, 0), 2);
 
+        _initialTileCount = _spawnedTiles.Count;
+
         RefreshInteractableStates();
+        StateChanged?.Invoke();
     }
 
     private void SpawnTile(int typeId, Vector2 position, int stackLevel)
