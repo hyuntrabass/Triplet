@@ -2,7 +2,7 @@ using System;
 
 public sealed class WarehouseSlotState
 {
-    public const int RequiredCahrge = 3;
+    public const int RequiredCharge = 3;
     
     public PlayerController Owner { get; }
     public int Charge { get; private set; }
@@ -17,7 +17,7 @@ public sealed class WarehouseSlotState
                 return WarehouseSlotStatus.Occupied;
             }
 
-            if (Charge >= RequiredCahrge)
+            if (Charge >= RequiredCharge)
             {
                 return WarehouseSlotStatus.Ready;
             }
@@ -46,7 +46,7 @@ public sealed class WarehouseSlotState
         }
 
         int gainedCharge = removedTileCount / 3;
-        int newCharge = Math.Min(RequiredCahrge, Charge + gainedCharge);
+        int newCharge = Math.Min(RequiredCharge, Charge + gainedCharge);
 
         if (newCharge == Charge)
         {
