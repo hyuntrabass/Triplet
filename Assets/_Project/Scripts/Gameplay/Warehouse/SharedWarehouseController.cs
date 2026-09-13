@@ -9,11 +9,14 @@ public class SharedWarehouseController : MonoBehaviour
     private PlayerScreenController _screenController;
     [SerializeField]
     private WarehouseSlotView[] _slotViews;
+    [SerializeField]
+    private TileSelectionController _tileSelectionController;
 
     private void Awake()
     {
         if (_localPlayer == null 
             || _screenController == null 
+            || _tileSelectionController == null 
             || _slotViews == null 
             || _slotViews.Length != 3)
         {
@@ -45,13 +48,53 @@ public class SharedWarehouseController : MonoBehaviour
     {
         if (slotView.CanAdd)
         {
-            Debug.Log($"{slotView.Owner.name}의 창고에 넣을 타일 선택 시작");
+            BeginStoreSelection(slotView);
             return;
         }
 
         if (slotView.State.Status == WarehouseSlotStatus.Occupied)
         {
             Debug.Log($"{slotView.Owner.name}의 창고 타일 가져가기");
+        }
+    }
+
+    private void HandleWarehouseTileSelected(WarehouseSlotView slotView, TileView tile)
+    {
+        if (slotView.CanAdd == false)
+        {
+            return;
+        }
+
+        if (_localPlayer.TryDetachTile(tile) == false)
+        {
+            Debug.LogWarning("선택한 타일을 기존 위치에서 분리하지 못했습니다.");
+            return;
+        }
+
+        if (slotView.TryStore(tile) == false)
+        {
+            throw new InvalidOperationException("타일을 분리한 뒤 공용창고 저장에 실패했습니다.");
+        }
+
+        RectTransform tileRect = (RectTransform)tile.transform;
+
+        tileRect.SetParent(slotView.TileAnchor, false);
+        tileRect.anchoredPosition = Vector2.zero;
+        tileRect.localRotation = Quaternion.identity;
+        tileRect.localScale = Vector3.one;
+
+        tile.SetInteractable(false);
+    }
+
+    private void BeginStoreSelection(WarehouseSlotView slotView)
+    {
+        var candidates = _localPlayer.GetWarehouseCandidates();
+
+        bool started = _tileSelectionController.TryBegin(candidates, "[공공창고]에 추가할 카드를 선택하세요", x => HandleWarehouseTileSelected(slotView, x));
+
+        if (started == false)
+        {
+            Debug.Log("공용창고에 올릴 수 있는 타일이 없습니다.");
         }
     }
 

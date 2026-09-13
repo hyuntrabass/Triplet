@@ -93,6 +93,7 @@ public class TileSelectionController : MonoBehaviour
             throw new InvalidOperationException("타일 선택 UI 참조가 연결되지 않았습니다.");
         }
 
+        _promptText.raycastTarget = false;
         _selectionView.SetActive(false);
     }
 
@@ -123,7 +124,7 @@ public class TileSelectionController : MonoBehaviour
             }
         }
 
-        if (_snapshot.Count > 0)
+        if (_snapshot.Count < 0)
         {
             return false;
         }

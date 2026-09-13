@@ -69,6 +69,11 @@ public class WarehouseSlotView : MonoBehaviour
         RefreshView();
     }
 
+    public bool TryStore(TileView tile)
+    {
+        return _controller.TryStore(tile);
+    }
+
     private void RefreshView()
     {
         WarehouseSlotState state = _controller.State;

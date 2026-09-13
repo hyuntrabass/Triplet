@@ -40,3 +40,30 @@ MonoBehaviour:
   - _typeId: 1
     _position: {x: 70, y: 40}
     _stackLevel: 2
+  - _typeId: 1
+    _position: {x: -70, y: -100}
+    _stackLevel: 1
+  - _typeId: 1
+    _position: {x: 0, y: -100}
+    _stackLevel: 1
+  - _typeId: 1
+    _position: {x: 70, y: -100}
+    _stackLevel: 1
+  - _typeId: 1
+    _position: {x: -70, y: -150}
+    _stackLevel: 2
+  - _typeId: 1
+    _position: {x: 0, y: -150}
+    _stackLevel: 2
+  - _typeId: 1
+    _position: {x: 70, y: -150}
+    _stackLevel: 2
+  - _typeId: 1
+    _position: {x: 70, y: -150}
+    _stackLevel: 0
+  - _typeId: 1
+    _position: {x: 70, y: -150}
+    _stackLevel: 0
+  - _typeId: 1
+    _position: {x: 70, y: -150}
+    _stackLevel: 0
