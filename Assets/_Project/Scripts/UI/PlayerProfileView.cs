@@ -1,5 +1,7 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerProfileView : MonoBehaviour
 {
@@ -9,6 +11,16 @@ public class PlayerProfileView : MonoBehaviour
     private GameObject _sosIndicator;
     [SerializeField]
     private TMP_Text _progressText;
+
+    private Button _button;
+
+    public event Action<PlayerController> Clicked;
+
+    private void Awake()
+    {
+        _button = GetComponent<Button>();
+        _button.onClick.AddListener(HandleClick);
+    }
 
     private void OnEnable()
     {
@@ -28,6 +40,11 @@ public class PlayerProfileView : MonoBehaviour
         _sosIndicator.SetActive(_player.IsDown);
     }
 
+    private void HandleClick()
+    {
+        Clicked?.Invoke(_player);
+    }
+
     private void HandleStateChanged()
     {
         RefreshView();
@@ -36,5 +53,13 @@ public class PlayerProfileView : MonoBehaviour
     private void OnDisable()
     {
         _player.StateChanged -= HandleStateChanged;
+    }
+
+    private void OnDestroy()
+    {
+        if (_button != null)
+        {
+            _button.onClick.RemoveListener(HandleClick);
+        }
     }
 }
