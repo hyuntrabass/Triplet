@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private TempBoardController _tempBoardController;
     [SerializeField]
-    private GameObject _downIndicator;
-    [SerializeField]
     private ItemDefinition[] _itemLoadout;
 
     private ItemInventory _itemInventory;
@@ -37,11 +35,6 @@ public class PlayerController : MonoBehaviour
         _trayController.TilesRemoved += HandleTilesRemoved;
     }
 
-    void Start()
-    {
-        RefreshPlayerState();
-    }
-
     public ItemState GrantRandomItem()
     {
         return _itemInventory.GrantRandomItem();
@@ -49,21 +42,12 @@ public class PlayerController : MonoBehaviour
 
     private void HandleStateChanged()
     {
-        RefreshPlayerState();
         StateChanged?.Invoke();
     }
 
     private void HandleTilesRemoved(int typeId, int count)
     {
         TilesRemoved?.Invoke(typeId, count);
-    }
-
-    private void RefreshPlayerState()
-    {
-        if (_downIndicator != null)
-        {
-            _downIndicator.SetActive(IsDown);
-        }
     }
 
     public void ClearMainTray()

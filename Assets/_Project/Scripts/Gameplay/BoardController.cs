@@ -30,9 +30,9 @@ public class BoardController : MonoBehaviour
         SpawnTile(2, new Vector2(0, 0), 1);
         SpawnTile(3, new Vector2(70, 0), 1);
 
-        SpawnTile(1, new Vector2(-70, 0), 2);
-        SpawnTile(1, new Vector2(0, 0), 2);
-        SpawnTile(1, new Vector2(70, 0), 2);
+        SpawnTile(4, new Vector2(-70, 0), 2);
+        SpawnTile(4, new Vector2(0, 0), 2);
+        SpawnTile(4, new Vector2(70, 0), 2);
 
         SpawnTile(1, new Vector2(-70, 0), 2);
         SpawnTile(1, new Vector2(0, 0), 2);
