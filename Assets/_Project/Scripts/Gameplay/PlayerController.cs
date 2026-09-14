@@ -82,6 +82,46 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
+    private bool TryUseShuffle()
+    {
+        var tiles = new List<TileView>();
+
+        tiles.AddRange(_boardController.GetAllTiles());
+        tiles.AddRange(_tempBoardController.GetAllTiles());
+
+        var originalTypeIds = tiles.Select(x => x.TypeId).ToList();
+
+        if (originalTypeIds.Distinct().Count() < 2)
+        {
+            return false;
+        }
+
+        var definitions = tiles.Select(x => x.Definition).ToList();
+
+        do
+        {
+            for (int i = definitions.Count - 1; i > 0; i--)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, i + 1);
+
+                var temp = definitions[i];
+                definitions[i] = definitions[randomIndex];
+                definitions[randomIndex] = temp;
+            }
+        }
+        while (definitions.Select(x => x.TypeId).SequenceEqual(originalTypeIds));
+
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            var tile = tiles[i];
+            tile.Init(definitions[i], tile.StackLevel);
+        }
+
+        StateChanged?.Invoke();
+
+        return true;
+    }
+
     public void CancelFreeSelect()
     {
         _boardController.CancelFreeSelect();
@@ -156,8 +196,9 @@ public class PlayerController : MonoBehaviour
                 return TryMoveFirstTilesToTempBoard();
             case ItemType.Hammer:
                 return TryUseHammer();
-            case ItemType.Undo:
             case ItemType.Shuffle:
+                return TryUseShuffle();
+            case ItemType.Undo:
             // 따로 처리
             //case ItemType.FreeSelect:
             default:

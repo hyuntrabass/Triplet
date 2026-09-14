@@ -80,6 +80,18 @@ public class TempBoardController : MonoBehaviour
         return topTiles;
     }
 
+    public IReadOnlyList<TileView> GetAllTiles()
+    {
+        var tiles = new List<TileView>();
+
+        foreach (var column in _columns)
+        {
+            tiles.AddRange(column);
+        }
+
+        return tiles;
+    }
+
     public bool TryDetachTile(TileView tile)
     {
         if (tile == null)

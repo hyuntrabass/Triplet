@@ -12,6 +12,7 @@ public class TileView : MonoBehaviour
     public int TypeId => _definition.TypeId;
     public int StackLevel { get; private set; }
     public bool IsInteractable => _button.interactable;
+    public TileDefinition Definition => _definition;
 
     private Action<TileView> _selectionHandler;
 

@@ -7777,7 +7777,7 @@ MonoBehaviour:
   _tempBoardController: {fileID: 118907185}
   _itemLoadout:
   - {fileID: 11400000, guid: ef0ad01566a4f354a862c712e87ccc4a, type: 2}
-  - {fileID: 11400000, guid: e4b07a4f239ebb64db913cc4b846b275, type: 2}
+  - {fileID: 11400000, guid: eab1a540a7d944a469da53e9ee2116fa, type: 2}
   - {fileID: 11400000, guid: 9eb13fec0ba313244afc86d068b56ea4, type: 2}
 --- !u!225 &1338122235
 CanvasGroup:
