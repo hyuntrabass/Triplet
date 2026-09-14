@@ -57,7 +57,7 @@ public class ItemUsePopupView : MonoBehaviour
 
         bool canUse = state.CanUse;
         _useButton.interactable = canUse;
-        _emptyMessageText.gameObject.SetActive(canUse);
+        _emptyMessageText.gameObject.SetActive(canUse == false);
 
         _popupRoot.SetActive(true);
     }
