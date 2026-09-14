@@ -107,6 +107,8 @@ public class SharedWarehouseController : MonoBehaviour
 
     private void BeginStoreSelection(WarehouseSlotView slotView)
     {
+        _localPlayer.CancelFreeSelect();
+
         var candidates = _localPlayer.GetWarehouseCandidates();
 
         bool started = _tileSelectionController.TryBegin(candidates, "[공공창고]에 추가할 카드를 선택하세요", x => HandleWarehouseTileSelected(slotView, x));

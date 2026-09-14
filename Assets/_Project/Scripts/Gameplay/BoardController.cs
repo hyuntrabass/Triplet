@@ -16,9 +16,11 @@ public class BoardController : MonoBehaviour
 
     private readonly List<TileView> _spawnedTiles = new();
     private int _initialTileCount;
+    private Action _freeSelectCompleted;
 
     public bool IsEmpty => _spawnedTiles.Count == 0;
     public int RemainingTileCount => _spawnedTiles.Count;
+    public bool IsFreeSelecting => _freeSelectCompleted != null;
     public float ClearProgress
     {
         get
@@ -151,14 +153,48 @@ public class BoardController : MonoBehaviour
             return;
         }
 
+        Action onCompleted = _freeSelectCompleted;
+        _freeSelectCompleted = null;
+
         TryDetachTile(tile);
+
+        onCompleted?.Invoke();
+    }
+
+    public void CancelFreeSelect()
+    {
+        if (IsFreeSelecting == false)
+        {
+            return;
+        }
+
+        _freeSelectCompleted = null;
+        RefreshInteractableStates();
+    }
+
+    public bool TryBeginFreeSelect(Action onCompleted)
+    {
+        if (onCompleted == null)
+        {
+            throw new ArgumentNullException(nameof(onCompleted));
+        }
+
+        if (IsFreeSelecting || IsEmpty || _trayController.IsFull)
+        {
+            return false;
+        }
+
+        _freeSelectCompleted = onCompleted;
+        RefreshInteractableStates();
+
+        return true;
     }
 
     private void RefreshInteractableStates()
     {
         foreach (var tile in _spawnedTiles)
         {
-            tile.SetInteractable(!IsBlocked(tile));
+            tile.SetInteractable(IsFreeSelecting || !IsBlocked(tile));
         }
     }
 

@@ -34,6 +34,13 @@ public class ItemBarController : MonoBehaviour
             return;
         }
 
+        if (_playerController != null)
+        {
+            _playerController.CancelFreeSelect();
+        }
+
+        _itemUsePopupView.Close();
+
         UnsubscribeButtons();
 
         _playerController = player;
@@ -66,6 +73,7 @@ public class ItemBarController : MonoBehaviour
 
     private void HandleItemClicked(ItemState state)
     {
+        _playerController.CancelFreeSelect();
         _itemUsePopupView.Open(state);
     }
 

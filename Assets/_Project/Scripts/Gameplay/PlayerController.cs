@@ -82,6 +82,11 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
+    public void CancelFreeSelect()
+    {
+        _boardController.CancelFreeSelect();
+    }
+
     public bool TryDetachTile(TileView tile)
     {
         if (_boardController.TryDetachTile(tile))
@@ -130,6 +135,11 @@ public class PlayerController : MonoBehaviour
             return false;
         }
 
+        if (state.Definition.Type == ItemType.FreeSelect)
+        {
+            return _boardController.TryBeginFreeSelect(() => state.TryConsume());
+        }
+
         if (TryApplyItemEffect(state.Definition.Type) == false)
         {
             return false;
@@ -148,7 +158,8 @@ public class PlayerController : MonoBehaviour
                 return TryUseHammer();
             case ItemType.Undo:
             case ItemType.Shuffle:
-            case ItemType.FreeSelect:
+            // 따로 처리
+            //case ItemType.FreeSelect:
             default:
                 Debug.Log($"아직 구현되지 않은 아이템: {itemType}");
                 return false;
