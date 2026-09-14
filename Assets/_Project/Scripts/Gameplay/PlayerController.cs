@@ -54,6 +54,25 @@ public class PlayerController : MonoBehaviour
         TilesMatched?.Invoke(typeId, count);
     }
 
+    //private void HandlePickBackSelected(ItemState state, TileView tile)
+    //{
+    //    if (_trayController.TryAdd(tile) == false)
+    //    {
+    //        Debug.Log("수납함이 가득 찼습니다.");
+    //        return;
+    //    }
+
+    //    if (_boardController.TryDetachTile(tile) == false)
+    //    {
+    //        throw new InvalidOperationException("선택한 타일을 보드에서 분리하지 못했습니다.");
+    //    }
+
+    //    if (state.TryConsume() == false)
+    //    {
+    //        throw new InvalidOperationException("PickBack 아이템을 소모하지 못했습니다.");
+    //    }
+    //}
+
     public IReadOnlyList<TileView> GetWarehouseCandidates()
     {
         var candidates = new List<TileView>();
@@ -64,6 +83,18 @@ public class PlayerController : MonoBehaviour
 
         return candidates;
     }
+
+    //private bool TryBeginPickBack(ItemState state)
+    //{
+    //    if (_trayController.IsFull)
+    //    {
+    //        return false;
+    //    }
+
+    //    IReadOnlyList<TileView> candidates = _boardController.GetAllTiles();
+
+    //    return _tileSelectionController.TryBegin(candidates, "가져올 타일을 선택하세요", x => HandlePickBackSelected(state, x));
+    //}
 
     private bool TryUseHammer()
     {
@@ -148,7 +179,7 @@ public class PlayerController : MonoBehaviour
                 return TryUseHammer();
             case ItemType.Undo:
             case ItemType.Shuffle:
-            case ItemType.PickBack:
+            case ItemType.FreeSelect:
             default:
                 Debug.Log($"아직 구현되지 않은 아이템: {itemType}");
                 return false;

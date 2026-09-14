@@ -48,12 +48,12 @@ public class ItemButtonView : MonoBehaviour
         }
 
         _countText.text = _state.Count.ToString();
-        _button.interactable = _state.CanUse;
+        _button.interactable = true;
     }
 
     private void HandleClick()
     {
-        if (_state == null || _state.CanUse == false)
+        if (_state == null)
         {
             return;
         }

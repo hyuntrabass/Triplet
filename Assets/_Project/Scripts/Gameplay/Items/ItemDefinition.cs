@@ -11,8 +11,12 @@ public class ItemDefinition : ScriptableObject
     private string _displayName;
     [SerializeField]
     private Sprite _icon;
+    [SerializeField]
+    [TextArea(2, 4)]
+    private string _description;
 
     public ItemType Type => _type;
     public string DisplayName => _displayName;
     public Sprite Icon => _icon;
+    public string Description => _description;
 }

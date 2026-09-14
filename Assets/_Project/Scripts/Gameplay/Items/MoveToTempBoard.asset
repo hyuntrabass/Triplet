@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MoveToTempBoard
   m_EditorClassIdentifier: Assembly-CSharp::ItemDefinition
   _type: 0
-  _displayName: "\uC62C\uB9AC\uAE30"
+  _displayName: "\uCE74\uB4DC \uBE7C\uAE30"
   _icon: {fileID: 0}
-  _initialCount: 3
+  _description: "\uCE74\uB4DC 3\uAC1C\uB97C \uC2AC\uB86F\uC5D0\uC11C \uC81C\uAC70\uD558\uC5EC \uBC16\uC73C\uB85C \uB450\uAE30"

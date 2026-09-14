@@ -78,6 +78,11 @@ public class BoardController : MonoBehaviour
         _spawnedTiles.Add(tile);
     }
 
+    public IReadOnlyList<TileView> GetAllTiles()
+    {
+        return _spawnedTiles.OrderBy(x => x.StackLevel).ToList();
+    }
+
     private TileDefinition GetTileDefinition(int typeId)
     {
         var definition = System.Array.Find(_tileDefinitions, x => x.TypeId == typeId);

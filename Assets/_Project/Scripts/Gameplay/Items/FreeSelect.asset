@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c2b7838637e769419156e5af8a991aa, type: 3}
-  m_Name: PickBack
+  m_Name: FreeSelect
   m_EditorClassIdentifier: Assembly-CSharp::ItemDefinition
   _type: 4
-  _displayName: "\uB4A4\uCC0C\uB974\uAE30"
+  _displayName: "\uC790\uC720 \uC120\uD0DD"
   _icon: {fileID: 0}
+  _description: "\uC6D0\uD558\uB294 \uCE74\uB4DC \uC790\uC720 \uC120\uD0DD \uAC00\uB2A5\\n(\uD2B9\uC218 \uCE74\uB4DC\uB294 \uB3C4\uAD6C\uC758 \uC601\uD5A5\uC744 \uBC1B\uC9C0 \uC54A\uC74C)"

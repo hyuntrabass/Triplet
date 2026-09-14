@@ -8,6 +8,13 @@ public class ItemBarController : MonoBehaviour
     private ItemButtonView[] _buttons;
     [SerializeField]
     private PlayerController _playerController;
+    [SerializeField]
+    private ItemUsePopupView _itemUsePopupView;
+
+    private void OnEnable()
+    {
+        _itemUsePopupView.UseRequested += HandleItemUseRequested;
+    }
 
     private void Start()
     {
@@ -49,13 +56,26 @@ public class ItemBarController : MonoBehaviour
         }
     }
 
+    private void HandleItemUseRequested(ItemState state)
+    {
+        if (_playerController.TryUseItem(state))
+        {
+            _itemUsePopupView.Close();
+        }
+    }
+
     private void HandleItemClicked(ItemState state)
     {
-        _playerController.TryUseItem(state);
+        _itemUsePopupView.Open(state);
     }
 
     private void OnDestroy()
     {
         UnsubscribeButtons();
+    }
+
+    private void OnDisable()
+    {
+        _itemUsePopupView.UseRequested -= HandleItemUseRequested;
     }
 }

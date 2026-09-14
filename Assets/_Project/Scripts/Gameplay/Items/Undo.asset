@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Undo
   m_EditorClassIdentifier: Assembly-CSharp::ItemDefinition
   _type: 1
-  _displayName: "\uC5B8\uB450"
+  _displayName: "\uB3CC\uC544\uAC00\uAE30"
   _icon: {fileID: 0}
+  _description: "\uB9C8\uC9C0\uB9C9\uC5D0 \uD074\uB9AD\uD55C \uCE74\uB4DC\uB97C \uC2AC\uB86F\uC5D0\uC11C \uC81C\uAC70\uD558\uC5EC \uC81C\uC790\uB9AC\uB85C \uB450\uAE30"
