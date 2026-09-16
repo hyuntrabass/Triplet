@@ -122,9 +122,47 @@ public class TempBoardController : MonoBehaviour
         return false;
     }
 
+    private void RestoreTile(TileView tile, int columnIndex, Vector2 position, Vector2 sizeDelta)
+    {
+        var column = _columns[columnIndex];
+
+        if (column.Count > 0)
+        {
+            column.Peek().SetInteractable(false);
+        }
+
+        column.Push(tile);
+        _tileCount++;
+
+        var rect = (RectTransform)tile.transform;
+
+        rect.SetParent(_columnAnchors[columnIndex], false);
+        rect.anchoredPosition = position;
+        rect.sizeDelta = sizeDelta;
+        rect.SetAsLastSibling();
+
+        tile.Clicked += HandleTileClicked;
+        tile.SetInteractable(true);
+        StateChanged?.Invoke();
+    }
+
     private void HandleTileClicked(TileView tile)
     {
-        if (_trayController.TryAdd(tile) == false)
+        int columnIndex = Array.FindIndex(_columns, x => x.Count > 0 && x.Peek() == tile);
+
+        if (columnIndex < 0)
+        {
+            return;
+        }
+
+        var rect = (RectTransform)tile.transform;
+
+        Vector2 position = rect.anchoredPosition;
+        Vector2 sizeDelta = rect.sizeDelta;
+
+        var added = _trayController.TryAdd(tile, () => RestoreTile(tile, columnIndex, position, sizeDelta));
+
+        if (added == false)
         {
             return;
         }

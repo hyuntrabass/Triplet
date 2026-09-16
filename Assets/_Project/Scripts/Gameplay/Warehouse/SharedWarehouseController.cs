@@ -84,6 +84,7 @@ public class SharedWarehouseController : MonoBehaviour
         tileRect.localScale = Vector3.one;
 
         tile.SetInteractable(false);
+        _localPlayer.ClearUndoHistory();
     }
 
     private void TryTakeStoredTile(WarehouseSlotView slotView)

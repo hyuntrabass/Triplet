@@ -65,10 +65,8 @@ public class ItemBarController : MonoBehaviour
 
     private void HandleItemUseRequested(ItemState state)
     {
-        if (_playerController.TryUseItem(state))
-        {
-            _itemUsePopupView.Close();
-        }
+        _playerController.TryUseItem(state);
+        _itemUsePopupView.Close();
     }
 
     private void HandleItemClicked(ItemState state)

@@ -9,6 +9,7 @@ public class TrayController : MonoBehaviour
     private RectTransform[] _slots;
 
     private readonly List<TileView> _tiles = new();
+    private readonly Stack<(TileView Tile, Action Restore)> _undoHistory = new();
 
     public bool IsEmpty => _tiles.Count == 0;
     public bool IsFull => _tiles.Count >= _slots.Length;
@@ -16,7 +17,7 @@ public class TrayController : MonoBehaviour
     public event Action StateChanged;
     public event Action<int, int> TilesRemoved;
 
-    public bool TryAdd(TileView tile)
+    public bool TryAdd(TileView tile, Action restore = null)
     {
         if (IsFull)
         {
@@ -33,7 +34,17 @@ public class TrayController : MonoBehaviour
         RearrangeTiles();
         RemoveMatchedTiles(tile.TypeId);
 
+        if (restore == null || _tiles.Contains(tile) == false)
+        {
+            ClearUndoHistory();
+        }
+        else
+        {
+            _undoHistory.Push((tile, restore));
+        }
+
         StateChanged?.Invoke();
+
         return true;
     }
 
@@ -69,6 +80,7 @@ public class TrayController : MonoBehaviour
             return false;
         }
 
+        ClearUndoHistory();
         RearrangeTiles();
         StateChanged?.Invoke();
 
@@ -77,6 +89,8 @@ public class TrayController : MonoBehaviour
 
     public void ClearAll()
     {
+        ClearUndoHistory();
+
         _tiles.ForEach(x =>
         {
             StartCoroutine(DestroyTileNextFrame(x.gameObject));
@@ -84,6 +98,36 @@ public class TrayController : MonoBehaviour
 
         _tiles.Clear();
         StateChanged?.Invoke();
+    }
+
+    public void ClearUndoHistory()
+    {
+        _undoHistory.Clear();
+    }
+
+    public bool TryUndoLastMove()
+    {
+        if (_undoHistory.Count == 0)
+        {
+            return false;
+        }
+
+        var record = _undoHistory.Peek();
+
+        if (record.Tile == null || _tiles.Remove(record.Tile) == false)
+        {
+            ClearUndoHistory();
+            return false;
+        }
+
+        _undoHistory.Pop();
+
+        RearrangeTiles();
+        record.Restore();
+
+        StateChanged?.Invoke();
+
+        return true;
     }
 
     private void RearrangeTiles()
@@ -108,6 +152,7 @@ public class TrayController : MonoBehaviour
 
         var targets = _tiles.GetRange(0, takeCount);
         _tiles.RemoveRange(0, takeCount);
+        ClearUndoHistory();
 
         RearrangeTiles();
         StateChanged?.Invoke();

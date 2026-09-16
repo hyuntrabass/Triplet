@@ -147,6 +147,11 @@ public class PlayerController : MonoBehaviour
         _trayController.ClearAll();
     }
 
+    public void ClearUndoHistory()
+    {
+        _trayController.ClearUndoHistory();
+    }    
+
     public bool TryAddToTray(TileView tile)
     {
         if (tile == null)
@@ -175,14 +180,25 @@ public class PlayerController : MonoBehaviour
             return false;
         }
 
-        if (state.Definition.Type == ItemType.FreeSelect)
+        ItemType itemType = state.Definition.Type;
+
+        if (itemType == ItemType.FreeSelect)
         {
-            return _boardController.TryBeginFreeSelect(() => state.TryConsume());
+            return _boardController.TryBeginFreeSelect(() => 
+            {
+                ClearUndoHistory();
+                state.TryConsume();
+            });
         }
 
         if (TryApplyItemEffect(state.Definition.Type) == false)
         {
             return false;
+        }
+
+        if (itemType != ItemType.Undo)
+        {
+            ClearUndoHistory();
         }
 
         return state.TryConsume();
@@ -199,6 +215,7 @@ public class PlayerController : MonoBehaviour
             case ItemType.Shuffle:
                 return TryUseShuffle();
             case ItemType.Undo:
+                return _trayController.TryUndoLastMove();
             // 따로 처리
             //case ItemType.FreeSelect:
             default:

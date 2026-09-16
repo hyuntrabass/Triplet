@@ -147,7 +147,15 @@ public class BoardController : MonoBehaviour
 
     private void HandleClicked(TileView tile)
     {
-        if (_trayController.TryAdd(tile) == false)
+        var rect = (RectTransform)tile.transform;
+
+        Vector2 position = rect.anchoredPosition;
+        Vector2 sizeDelta = rect.sizeDelta;
+        int siblingIndex = rect.GetSiblingIndex();
+
+        bool added = _trayController.TryAdd(tile, () => RestoreTile(tile, position, sizeDelta, siblingIndex));
+
+        if (added == false)
         {
             Debug.Log("수납함이 가득 찼습니다.");
             return;
@@ -188,6 +196,22 @@ public class BoardController : MonoBehaviour
         RefreshInteractableStates();
 
         return true;
+    }
+
+    private void RestoreTile(TileView tile, Vector2 position, Vector2 sizeDelta, int siblingIndex)
+    {
+        var rect = (RectTransform)tile.transform;
+
+        rect.SetParent(transform, false);
+        rect.anchoredPosition = position;
+        rect.sizeDelta = sizeDelta;
+        rect.SetSiblingIndex(siblingIndex);
+
+        _spawnedTiles.Add(tile);
+        tile.Clicked += HandleClicked;
+
+        RefreshInteractableStates();
+        StateChanged?.Invoke();
     }
 
     private void RefreshInteractableStates()
