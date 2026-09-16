@@ -7778,7 +7778,7 @@ MonoBehaviour:
   _itemLoadout:
   - {fileID: 11400000, guid: ef0ad01566a4f354a862c712e87ccc4a, type: 2}
   - {fileID: 11400000, guid: eab1a540a7d944a469da53e9ee2116fa, type: 2}
-  - {fileID: 11400000, guid: 9eb13fec0ba313244afc86d068b56ea4, type: 2}
+  - {fileID: 11400000, guid: 0e2c72d6b69f65c4582465a95b6d3c6d, type: 2}
 --- !u!225 &1338122235
 CanvasGroup:
   m_ObjectHideFlags: 0
