@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GameController : MonoBehaviour
 
     private bool _isFinished;
     private bool _needEvaluation;
+    private bool _isRestarting;
 
     private void OnEnable()
     {
@@ -76,6 +78,18 @@ public class GameController : MonoBehaviour
         _resultView.Show(isWin, _players);
 
         Debug.Log(isWin ? "GameClear" : "Game Over");
+    }
+
+    public void RestartGame()
+    {
+        if (_isFinished == false || _isRestarting)
+        {
+            return;
+        }
+
+        _isRestarting = true;
+
+        SceneManager.LoadSceneAsync(gameObject.scene.path, LoadSceneMode.Single);
     }
 
     private void OnDisable()
