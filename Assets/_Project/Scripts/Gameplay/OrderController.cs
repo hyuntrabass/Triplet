@@ -83,14 +83,18 @@ public class OrderController : MonoBehaviour
         return UnityEngine.Random.Range(0, 2) == 0 ? 9 : 12;
     }
 
-    private void HandleTilesRemoved(int typeId, int count)
+    private void HandleTilesRemoved(PlayerController player, int typeId, int count)
     {
         if (typeId != _target.TypeId || count <= 0)
         {
             return;
         }
 
-        _currentCount = Mathf.Min(_currentCount + count, _requiredCount);
+        int remainingCount = _requiredCount - _currentCount;
+        int appliedCount = Mathf.Min(count, remainingCount);
+
+        _currentCount += appliedCount;
+        player.Statistics.AddOrderContribution(appliedCount);
 
         Debug.Log($"주문 진행 {_currentCount}/{_requiredCount}");
 

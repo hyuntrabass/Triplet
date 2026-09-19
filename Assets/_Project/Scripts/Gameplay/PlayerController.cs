@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private TempBoardController _tempBoardController;
     [SerializeField]
     private ItemDefinition[] _itemLoadout;
+    [SerializeField]
+    private string _displayName;
 
     private ItemInventory _itemInventory;
 
@@ -20,9 +22,11 @@ public class PlayerController : MonoBehaviour
     public bool IsClear => _boardController.IsEmpty && _tempBoardController.IsEmpty;
     public IReadOnlyList<ItemState> ItemStates => _itemInventory.States;
     public float ClearProgress => _boardController.ClearProgress;
+    public string DisplayName => _displayName;
+    public PlayerStatistics Statistics { get; } = new();
 
     public event Action StateChanged;
-    public event Action<int, int> OrderTilesRemoved;
+    public event Action<PlayerController, int, int> OrderTilesRemoved;
     public event Action<int, int> TilesMatched;
 
     private void Awake()
@@ -50,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleTilesRemoved(int typeId, int count)
     {
-        OrderTilesRemoved?.Invoke(typeId, count);
+        OrderTilesRemoved?.Invoke(this, typeId, count);
         TilesMatched?.Invoke(typeId, count);
     }
 
@@ -76,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
         foreach (var group in removedTypeIds.GroupBy(x => x))
         {
-            OrderTilesRemoved?.Invoke(group.Key, group.Count());
+            OrderTilesRemoved?.Invoke(this, group.Key, group.Count());
         }
 
         return true;

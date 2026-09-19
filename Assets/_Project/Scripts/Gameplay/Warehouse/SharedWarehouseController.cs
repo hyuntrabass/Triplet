@@ -85,6 +85,7 @@ public class SharedWarehouseController : MonoBehaviour
 
         tile.SetInteractable(false);
         _localPlayer.ClearUndoHistory();
+        _localPlayer.Statistics.RecordWarehouseStored();
     }
 
     private void TryTakeStoredTile(WarehouseSlotView slotView)
@@ -104,6 +105,9 @@ public class SharedWarehouseController : MonoBehaviour
         {
             throw new InvalidOperationException("창고에서 타일을 꺼낸 뒤 트레이 추가에 실패했습니다.");
         }
+
+        bool isOwnSlot = slotView.Owner == _localPlayer;
+        _localPlayer.Statistics.RecordWarehouseTaken(isOwnSlot);
     }
 
     private void BeginStoreSelection(WarehouseSlotView slotView)

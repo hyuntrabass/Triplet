@@ -5,6 +5,9 @@ public class GameController : MonoBehaviour
 {
     [SerializeField]
     private PlayerController[] _players;
+    [SerializeField]
+    private GameResultView _resultView;
+
     private bool _isFinished;
     private bool _needEvaluation;
 
@@ -46,16 +49,33 @@ public class GameController : MonoBehaviour
 
         if (_players.Any(x => x.IsClear))
         {
-            _isFinished = true;
-            Debug.Log("Game Clear");
+            FinishGame(true);
             return;
         }
 
         if (_players.All(x => x.IsDown))
         {
-            _isFinished = true;
-            Debug.Log("Game Over");
+            FinishGame(false);
         }
+    }
+
+    private void FinishGame(bool isWin)
+    {
+        if (_isFinished)
+        {
+            return;
+        }
+
+        _isFinished = true;
+
+        foreach (var player in _players)
+        {
+            player.Statistics.Freeze();
+        }
+
+        _resultView.Show(isWin, _players);
+
+        Debug.Log(isWin ? "GameClear" : "Game Over");
     }
 
     private void OnDisable()
